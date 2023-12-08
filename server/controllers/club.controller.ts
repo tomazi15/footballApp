@@ -11,4 +11,14 @@ async function getAllClubs(req: Request, res: Response) {
   }
 }
 
-module.exports = { getAllClubs };
+async function getClub(req: Request, res: Response) {
+  try {
+    const id = req.params.id;
+    const club = await ClubModel.findById(id);
+    res.status(200).json(club);
+  } catch (error) {
+    res.status(404).json({ error: "No club found with this id" });
+  }
+}
+
+module.exports = { getAllClubs, getClub };
